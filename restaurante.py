@@ -46,4 +46,5 @@ def iniciar_sistema():
             print("\n[ERROR] Por favor, ingresa unicamente numeros enteros")  
 
 if __name__ == "__main__":
-                iniciar_sistema()
+    iniciar_sistema()
+    
