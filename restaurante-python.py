@@ -3,6 +3,13 @@ platillos = ["Hamburguesas", "Pizzas", "Sanduches", "Perros Calientes", "Tacos",
 precios = [18000, 21000, 12000, 9000, 15000, 16000, 6000, 8000]
 pedido_cliente = []
 precios_cliente = []
+categorias = [
+    "Comida Rapida",  # Hamburguezas
+    "Comida Italiana",  # Pizzas
+    "Comida Mexicana",  # Tacos
+    "Comida Saludable",  # Ensaladas, Sopas
+    "Postres", # Postres
+    ]
 
 def mostrar_menu():
     print("----- MENÚ DEL RESTAURANTE -----")
@@ -13,9 +20,24 @@ def mostrar_menu():
 
 def agregar_al_pedido(opcion):
     indice = opcion - 1
+
     pedido_cliente.append(platillos[indice])
-    precios_cliente.append(precios[indice])
-    print(f"\n--> Agregaste: {platillos[indice]} (${precios[indice]: ,.0f})")
+
+    precio_final = calcular_precio_final(
+        precios[indice],
+        categorias[indice]
+        )
+    precios_cliente.append(precio_final)
+    
+    print(f"\n--> Agregaste: {platillos[indice]} (${precio_final:,.0f}")
+    
+
+def calcular_precio_final(precio, categoria):
+    
+        if categoria == "Comida Rapida" and precio > 15000:
+            return precio * 0.85
+        
+        return precio
 
 def generar_factura():
     print("\n" + "*"*40 + "\n       FACTURA DE PEDIDO     \n" + "*"*40)
@@ -24,7 +46,9 @@ def generar_factura():
     else:
         for i in range(len(pedido_cliente)):
              print(f"- {pedido_cliente[i]}: ${precios_cliente[i]:,.0f}")
-        print("-" * 40 + f"\nTOTAL A PAGAR: ${sum(precios_cliente):,.0f}")
+
+        subtotal = sum(precios_cliente)     
+        print("-" * 40 + f"\nTOTAL A PAGAR: ${subtotal:,.0f}")
         print("*" *40 + "\n¡Gracias por su compra, Vuelva pronto!")
     print("-------------------")
 
